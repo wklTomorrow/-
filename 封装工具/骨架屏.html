@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            window.begin = Date.now()
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded',function(){
+                console.log(Date.now() - window.begin, 'DOMContentLoaded')
+            });
+        </script>
+        <script>
+            window.onload = function() {
+                console.log(Date.now() - window.begin, 'load')
+            }
+        </script>
+        <script>
+            window.startTime = Date.now()
+        </script>
+        <div id="react_app">
+            <div style="background-image:url(https://bs.taou.com/static/images/loading_icon.gif)"></div>
+        </div>
+        <script>
+            window.endTime = Date.now()
+            console.log(window.endTime - window.startTime, 'renderDom')
+        </script>
+        <script>
+            // const dom = document.getElementById('react_app')
+            // let time = 0
+            // const callback = function(mutationsList, observer) {
+            //     // Use traditional 'for loops' for IE 11
+            //     console.log(time)
+            //     time = Date.now();
+            //     console.log(mutationsList, observer)
+            //     for(let mutation of mutationsList) {
+            //         if (mutation.type === 'childList') {
+            //             console.log('A child node has been added or removed.');
+            //         }
+            //         else if (mutation.type === 'attributes') {
+            //             console.log('The ' + mutation.attributeName + ' attribute was modified.');
+            //         }
+            //     }
+            // };
+            // const config = { attributes: true, childList: true, subtree: true };
+            // const observer = new MutationObserver(callback);
+            // var mutations = observer.takeRecords();
+
+            // if (mutations) {
+            //     callback(mutations);
+            // }
+            // observer.observe(dom, config)
+            // observer.disconnect();
+        </script>
+        <!-- <script>
+            const doms = document.getElementById('react_app')
+            doms.innerHTML = '<div>hello world</div>'
+        </script> -->
+        
+        <script src="https://bs.taou.com/static/skeleton/jobs.job_detail.dd226684338db37327b6.js"></script>
+        <!-- <script src="./skeleton.js"></script> -->
+    </body>
+</html>

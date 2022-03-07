@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .test {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                font-size: 42px;
+                position: relative;
+                /* text-overflow: ellipsis; */
+            }
+            .show {
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                font-size: 42px;
+                color: red;
+                background-color: #fff;
+            }
+            .hide {
+                color: red;
+                display: inline-block;
+                font-size: 42px;
+                background-color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="test" id="text">
+        </div>
+        <div class="show" onclick="onExpend()">... 展开</div>
+        <span class="hide">
+            收起
+        </span>
+        <script>
+            const inner = `
+            将页面或相关组件通过服务器解析为html字符串，返还至客户端，由客户端渲染页面
+            将页面或相关组件通过服务器解析为html字符串，返还至客户端，由客户端渲染页面
+            将页面或相关组件通过服务器解析为html字符串，返还至客户端，由客户端渲染页面
+            将页面或相关组件通过服务器解析为html字符串，返还至客户端，由客户端渲染页面
+            将页面或相关组件通过服务器解析为html字符串，返还至客户端，由客户端渲
+            `
+            const dom = document.getElementById('text')
+            const defaultHeight = 100
+            dom.innerHTML = inner
+            setTimeout(() => {
+                const {offsetHeight, scrollHeight} = dom
+                if (parseInt(offsetHeight) > defaultHeight) {
+                    dom.style['-webkit-line-clamp'] = '3'
+                    console.log(dom)
+                    const node = document.getElementsByClassName('show')[0].cloneNode(true)
+                    console.log(node)
+                    dom.appendChild(node)
+                }
+            })
+            function onExpend() {
+                dom.style['-webkit-line-clamp'] = 0
+                const node = document.getElementsByClassName('hide')[0].cloneNode(true)
+                dom.appendChild(node)
+                console.log(dom.style['-webkit-line-clamp'])
+            }
+        </script>
+    </body>
+</html>
