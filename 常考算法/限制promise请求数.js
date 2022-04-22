@@ -15,14 +15,21 @@ class Limit {
     }
 
     excute() {
-        while (this.count < this.max && this.queue.length) {
-            const fn = this.queue.shift()
-            this.count ++
-            fn().then(() => {
-                this.count --
-                this.excute()
-            })
+        const run = () => {
+            while (this.count < this.max && this.queue.length) {
+                const fn = this.queue.shift()
+                this.count ++
+                fn().then(() => {
+                    this.count --
+                    run()
+                })
+            }
         }
+        // 尽早的开始执行
+        const quickStart = Array.from({
+            length: Math.max(this.max, this.queue.length),
+        }, () => Promise.resolve().then(() => run()))
+        return Promise.all([...quickStart])
     }
 }
 
