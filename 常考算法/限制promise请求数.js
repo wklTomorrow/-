@@ -27,7 +27,7 @@ class Limit {
         }
         // 尽早的开始执行
         const quickStart = Array.from({
-            length: Math.max(this.max, this.queue.length),
+            length: Math.min(this.max, this.queue.length),
         }, () => Promise.resolve().then(() => run()))
         return Promise.all([...quickStart])
     }

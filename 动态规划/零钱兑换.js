@@ -9,14 +9,17 @@
 
 const coinsExchange = (coins, amount) => {
     const dp = Array.from({
-        length: amount
-    }, () => 0)
-    for (let i = 0; i < amount; i++) {
+        length: amount + 1
+    }, () => Infinity)
+    dp[0] = 0
+    for (let i = 0; i <= amount; i++) {
         for (let cur of coins) {
             if (i - cur >= 0) {
-                dp[i] = Math.min(dp[i], 1 + dp[i - 1])
+                dp[i] = Math.min(dp[i], 1 + dp[i - cur])
             }
         }
     }
     return dp[amount]
 }
+
+console.log(coinsExchange([1,2,5], 11))
