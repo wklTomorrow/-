@@ -60,3 +60,41 @@ const deepClone = (obj, map = new Map()) => {
 }
 
 console.log(deepClone(obj))
+
+const isObjs = obj => typeof obj !== null && (typeof obj === 'object' || typeof obj === 'function') 
+
+const deepC = (obj, map = new Map) => {
+    if (map.get(obj)) {
+        return map.get(obj)
+    }
+
+    if (!isObjs(obj)) {
+        return obj
+    }
+
+    if (typeof obj === 'function') {
+        return obj
+    }
+
+    const Constructor = obj.constructor
+    let cloneObj = null
+
+    switch(Constructor) {
+        case Boolean:
+        case Date:
+            cloneObj = new Date(+obj)
+            break
+        case String:
+        case Number:
+        case RegExp:
+            cloneObj = new Constructor()
+            break
+        default:
+            cloneObj = new Constructor()
+            map.set(obj, cloneObj)
+    }
+    ;[...Object.getOwnPropertyNames(obj), ...Object.getOwnPropertySymbols(obj)].forEach(item => {
+        cloneObj[item] = deepC(obj[item], map)
+    })
+    return cloneObj
+}
